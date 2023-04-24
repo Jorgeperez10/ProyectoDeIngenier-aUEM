@@ -1,14 +1,21 @@
 import java.io.IOException;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Image;
 
 //Eduardo Morales Calvo
 //Jorge Pérez de Dios
@@ -44,6 +51,7 @@ public class PI {
 		try {
 
 			Date fecha = new Date(); //obtiene la fecha actual
+			SimpleDateFormat hr = new SimpleDateFormat("EEEE, dd-MM-YYYY HH:mm:ss");
 			URL url = new URL(apiUrl); //crea objeto de la URL
 			HttpURLConnection conectar = (HttpURLConnection) url.openConnection(); //crea objeto de conexion
 			conectar.setRequestMethod("GET"); //Metodo de conexion
@@ -71,7 +79,16 @@ public class PI {
 
 				//crea un objeto imagen con la url de iconos de la API
 				ImageIcon icono = new ImageIcon(new URL("https://openweathermap.org/img/wn/" + CodigoIcono + "@2x.png")); 
-				Imagen.setIcon(icono); // se establece la imagen al label
+
+			    // Obtener la imagen del ImageIcon
+				Image input_Image = icono.getImage();
+				// Redimensionar imagen
+				Image output_Image = input_Image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+
+				// Crear nuevo ImageIcon con la imagen redimensionada
+				ImageIcon outputIcon = new ImageIcon(output_Image);
+
+				Imagen.setIcon(outputIcon); // se establece la imagen al label
 
 				float temperatura = ob.getJSONObject("main").getFloat("temp"); //guarda el apartado de temperatura que estaba en main
 				float humedad = ob.getJSONObject("main").getFloat("humidity"); //guarda el apartado de humedad que estaba en main
@@ -155,7 +172,7 @@ public class PI {
 				degreeLabel.setText(direcciónviento + " º"); //imprime dirección del viento en grados
 				countryLabel.setText(pais); //imprime el pais en el que esta la torre
 				ubicacionLabel.setText(name);
-				timeLabel.setText(fecha.toString());
+				timeLabel.setText(hr.format(fecha).toString());
 
 				/*
 		        System.out.println("temperatura: " + temperatura + " ºC"); //imprime temperatura
@@ -172,17 +189,17 @@ public class PI {
 		        System.out.println("ubicación: " + name); //imprime ubicación
 				System.out.println (fecha);
 				 */
-				
+
 				//Recomendaciones y avisos
 				if(temperatura < 5) {
 					peligro2.setToolTipText("Riesgo: Temperatura menor a 5ºC");
 					panel.add(peligro2);
 				}
-				
+
 				if(temperatura > 30) {
 					peligro2.setToolTipText("Riesgo: Temperatura mayor a 30ºC");
 					panel.add(peligro2);
-				
+
 				}
 
 				p.close();	//se cierra el escaner
@@ -190,8 +207,8 @@ public class PI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
+
+
 	}
 
 
@@ -199,9 +216,11 @@ public class PI {
 
 
 	public static void main(String[] args) {
-		
-		System.setProperty("sun.java2d.uiScale", "100%");	
-	
+
+		System.setProperty("sun.java2d.uiScale", "100%");
+
+
+
 		String torres[]= {"TorreEspaña",
 				"Torreta de Guardamar",
 				"Torre de Zaragoza",
@@ -209,7 +228,7 @@ public class PI {
 				"Faro de Moncloa",
 				"Torre de Collserola",
 				"Torre de Montjuïc",
-				"Torre de Gerona"};
+		"Torre de Gerona"};
 		//URL de la API con los diferentes parametros como latitud,longitud,la llave de la API,la unidad metrica y el idioma
 
 		//Inicio frame que contendra el panel con los labels
@@ -230,34 +249,32 @@ public class PI {
 		panel.setBackground(new Color(42, 50, 60));
 		panel.setBorder(null);
 
+
 		//Titulo
 		JLabel Titulo = new JLabel();
-		Titulo.setForeground(Color.WHITE);
+		Titulo.setForeground(Color.BLACK);
 		Titulo.setFont(new Font("Arial", Font.BOLD, 28));
 		Titulo.setBounds(10, 67, 305, 43);
 		Titulo.setPreferredSize(new Dimension(305, 43));
 		panel.add(Titulo);
 
 		//Imagen
-		JLabel circuloLabel = new JLabel(new ImageIcon("Img/circulo.png"));
 		JLabel Imagen = new JLabel();
-		circuloLabel.setBounds(250, 134, 168, 132);
-		circuloLabel.setPreferredSize(new Dimension(168, 132));
-		Imagen.setBounds(283, 134, 168, 132);
-		Imagen.setPreferredSize(new Dimension(168, 132));
+		Imagen.setBounds(225, 100, 220, 220);
+		Imagen.setPreferredSize(new Dimension(220, 220));//168,132
 		panel.add(Imagen);
-		panel.add(circuloLabel);
+
 
 		// Clima
 		JLabel climaLabel1 = new JLabel("Tiempo: ");
-		climaLabel1.setForeground(Color.WHITE);
+		climaLabel1.setForeground(Color.BLACK);
 		climaLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		climaLabel1.setBounds(10, 127, 83, 14);
 		climaLabel1.setPreferredSize(new Dimension(83, 14));
 		panel.add(climaLabel1);
 
 		JLabel climaLabel = new JLabel();
-		climaLabel.setForeground(Color.WHITE);
+		climaLabel.setForeground(Color.BLACK);
 		climaLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		climaLabel.setBounds(70, 127, 210, 14);
 		climaLabel.setPreferredSize(new Dimension(210, 14));
@@ -270,14 +287,14 @@ public class PI {
 
 		// Descripción
 		JLabel descriptionLabel1 = new JLabel("Descripción: ");
-		descriptionLabel1.setForeground(Color.WHITE);
+		descriptionLabel1.setForeground(Color.BLACK);
 		descriptionLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		descriptionLabel1.setBounds(10, 152, 100, 14);
 		descriptionLabel1.setPreferredSize(new Dimension(100, 14));
 		panel.add(descriptionLabel1);
 
 		JLabel descriptionLabel = new JLabel();
-		descriptionLabel.setForeground(Color.WHITE);
+		descriptionLabel.setForeground(Color.BLACK);
 		descriptionLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		descriptionLabel.setBounds(103, 152, 210, 14);
 		descriptionLabel.setPreferredSize(new Dimension(210, 14));
@@ -291,14 +308,14 @@ public class PI {
 		//Temperatura
 		JLabel temperatureLabel1 = new JLabel("Temperatura: ");
 		temperatureLabel1.setFont(new Font("Arial", Font.BOLD, 15));
-		temperatureLabel1.setForeground(Color.WHITE);
+		temperatureLabel1.setForeground(Color.BLACK);
 		temperatureLabel1.setBounds(10, 177, 110, 14);
 		temperatureLabel1.setPreferredSize(new Dimension(110, 14));
 		panel.add(temperatureLabel1);
 
 		JLabel temperatureLabel = new JLabel();
 		temperatureLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		temperatureLabel.setForeground(Color.WHITE);
+		temperatureLabel.setForeground(Color.BLACK);
 		temperatureLabel.setBounds(110, 177, 110, 14);
 		temperatureLabel.setPreferredSize(new Dimension(110, 14));
 		panel.add(temperatureLabel);
@@ -310,14 +327,14 @@ public class PI {
 
 		//Temperatura
 		JLabel temperatureminLabel1  = new JLabel("Temperatura mín: ");
-		temperatureminLabel1.setForeground(Color.WHITE);
+		temperatureminLabel1.setForeground(Color.BLACK);
 		temperatureminLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		temperatureminLabel1.setBounds(10, 202, 130, 14);
 		temperatureminLabel1.setPreferredSize(new Dimension(130, 14));
 		panel.add(temperatureminLabel1);
 
 		JLabel temperatureminLabel  = new JLabel();
-		temperatureminLabel.setForeground(Color.WHITE);
+		temperatureminLabel.setForeground(Color.BLACK);
 		temperatureminLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		temperatureminLabel.setBounds(139, 202, 110, 14);
 		temperatureminLabel.setPreferredSize(new Dimension(110, 14));
@@ -329,14 +346,14 @@ public class PI {
 		 */
 		//Temperatura
 		JLabel temperaturemaxLabel1 = new JLabel("Temperatura máx: ");
-		temperaturemaxLabel1.setForeground(Color.WHITE);
+		temperaturemaxLabel1.setForeground(Color.BLACK);
 		temperaturemaxLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		temperaturemaxLabel1.setBounds(10, 227, 135, 14);
 		temperaturemaxLabel1.setPreferredSize(new Dimension(135, 14));
 		panel.add(temperaturemaxLabel1);
 
 		JLabel temperaturemaxLabel = new JLabel();
-		temperaturemaxLabel.setForeground(Color.WHITE);
+		temperaturemaxLabel.setForeground(Color.BLACK);
 		temperaturemaxLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		temperaturemaxLabel.setBounds(141, 227, 110, 14);
 		temperaturemaxLabel.setPreferredSize(new Dimension(110, 14));
@@ -348,14 +365,14 @@ public class PI {
 		 */
 		//sensación térmica
 		JLabel feelslikeLabel1 = new JLabel("Sensación Térmica:");
-		feelslikeLabel1.setForeground(Color.WHITE);
+		feelslikeLabel1.setForeground(Color.BLACK);
 		feelslikeLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		feelslikeLabel1.setBounds(10, 252, 150, 14);
 		feelslikeLabel1.setPreferredSize(new Dimension(135, 14));
 		panel.add(feelslikeLabel1);
 
 		JLabel feelslikeLabel = new JLabel();
-		feelslikeLabel.setForeground(Color.WHITE);
+		feelslikeLabel.setForeground(Color.BLACK);
 		feelslikeLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		feelslikeLabel.setBounds(153, 252, 135, 14);
 		feelslikeLabel.setPreferredSize(new Dimension(135, 14));
@@ -367,14 +384,14 @@ public class PI {
 		 */
 		//Humedad
 		JLabel humidityLabel1 = new JLabel("Humedad: ");
-		humidityLabel1.setForeground(Color.WHITE);
+		humidityLabel1.setForeground(Color.BLACK);
 		humidityLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		humidityLabel1.setBounds(10, 277, 110, 14);
 		humidityLabel1.setPreferredSize(new Dimension(110, 14));
 		panel.add(humidityLabel1);
 
 		JLabel humidityLabel = new JLabel();
-		humidityLabel.setForeground(Color.WHITE);
+		humidityLabel.setForeground(Color.BLACK);
 		humidityLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		humidityLabel.setBounds(85, 277, 110, 14);
 		humidityLabel.setPreferredSize(new Dimension(110, 14));
@@ -386,14 +403,14 @@ public class PI {
 		 */
 		//presión
 		JLabel pressureLabel1 = new JLabel("Presión: ");
-		pressureLabel1.setForeground(Color.WHITE);
+		pressureLabel1.setForeground(Color.BLACK);
 		pressureLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		pressureLabel1.setBounds(10, 302, 110, 14);
 		pressureLabel1.setPreferredSize(new Dimension(110, 14));
 		panel.add(pressureLabel1);
 
 		JLabel pressureLabel = new JLabel();
-		pressureLabel.setForeground(Color.WHITE);
+		pressureLabel.setForeground(Color.BLACK);
 		pressureLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		pressureLabel.setBounds(73, 302, 150, 14);
 		pressureLabel.setPreferredSize(new Dimension(150, 14));
@@ -405,14 +422,14 @@ public class PI {
 		 */
 		//visibilidad
 		JLabel visibilityLabel1 = new JLabel("Visibilidad: ");
-		visibilityLabel1.setForeground(Color.WHITE);
+		visibilityLabel1.setForeground(Color.BLACK);
 		visibilityLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		visibilityLabel1.setBounds(10, 327, 110, 14);
 		visibilityLabel1.setPreferredSize(new Dimension(110, 14));
 		panel.add(visibilityLabel1);
 
 		JLabel visibilityLabel = new JLabel();
-		visibilityLabel.setForeground(Color.WHITE);
+		visibilityLabel.setForeground(Color.BLACK);
 		visibilityLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		visibilityLabel.setBounds(89, 327, 110, 14);
 		visibilityLabel.setPreferredSize(new Dimension(110, 14));
@@ -425,14 +442,14 @@ public class PI {
 
 		//velocidad viento
 		JLabel speedLabel1 = new JLabel("Velocidad del viento: ");
-		speedLabel1.setForeground(Color.WHITE);
+		speedLabel1.setForeground(Color.BLACK);
 		speedLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		speedLabel1.setBounds(10, 352, 170, 14);
 		speedLabel1.setPreferredSize(new Dimension(170, 14));
 		panel.add(speedLabel1);
 
 		JLabel speedLabel = new JLabel();
-		speedLabel.setForeground(Color.WHITE);
+		speedLabel.setForeground(Color.BLACK);
 		speedLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		speedLabel.setBounds(163, 352, 110, 14);
 		speedLabel.setPreferredSize(new Dimension(110, 14));
@@ -445,14 +462,14 @@ public class PI {
 
 		//ángulo viento
 		JLabel degreeLabel1 = new JLabel("Ángulo del viento: ");
-		degreeLabel1.setForeground(Color.WHITE);
+		degreeLabel1.setForeground(Color.BLACK);
 		degreeLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		degreeLabel1.setBounds(10, 377, 170, 16);
 		degreeLabel1.setPreferredSize(new Dimension(170, 16));
 		panel.add(degreeLabel1);
 
 		JLabel degreeLabel = new JLabel();
-		degreeLabel.setForeground(Color.WHITE);
+		degreeLabel.setForeground(Color.BLACK);
 		degreeLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		degreeLabel.setBounds(143, 377, 110, 16);
 		degreeLabel.setPreferredSize(new Dimension(110, 16));
@@ -460,14 +477,14 @@ public class PI {
 
 		//Pais
 		JLabel countryLabel1 = new JLabel("País: ");
-		countryLabel1.setForeground(Color.WHITE);
+		countryLabel1.setForeground(Color.BLACK);
 		countryLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		countryLabel1.setBounds(10, 404, 70, 14);
 		countryLabel1.setPreferredSize(new Dimension(70, 14));
 		panel.add(countryLabel1);
 
 		JLabel countryLabel = new JLabel();
-		countryLabel.setForeground(Color.WHITE);
+		countryLabel.setForeground(Color.BLACK);
 		countryLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		countryLabel.setBounds(47, 404, 315, 14);
 		countryLabel.setPreferredSize(new Dimension(315, 14));
@@ -475,14 +492,14 @@ public class PI {
 
 		//Ubicación
 		JLabel ubicacionLabel1 = new JLabel("Ubicación: ");
-		ubicacionLabel1.setForeground(Color.WHITE);
+		ubicacionLabel1.setForeground(Color.BLACK);
 		ubicacionLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 		ubicacionLabel1.setBounds(85, 404, 110, 14);
 		ubicacionLabel1.setPreferredSize(new Dimension(110, 14));
 		panel.add(ubicacionLabel1);
 
 		JLabel ubicacionLabel = new JLabel();
-		ubicacionLabel.setForeground(Color.WHITE);
+		ubicacionLabel.setForeground(Color.BLACK);
 		ubicacionLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		ubicacionLabel.setBounds(163, 404, 315, 14);
 		ubicacionLabel.setPreferredSize(new Dimension(315, 14));
@@ -490,9 +507,9 @@ public class PI {
 
 		//fecha
 		JLabel timeLabel = new JLabel();
-		timeLabel.setForeground(Color.WHITE);
+		timeLabel.setForeground(Color.BLACK);
 		timeLabel.setFont(new Font("Arial", Font.BOLD, 12));
-		timeLabel.setBounds(245, 280, 300, 14);
+		timeLabel.setBounds(255, 280, 300, 14);
 		timeLabel.setPreferredSize(new Dimension(300, 14));
 		panel.add(timeLabel);
 
@@ -510,7 +527,7 @@ public class PI {
 
 		//nombre
 		JLabel nombre1 = new JLabel("Eduardo MC");
-		nombre1.setForeground(Color.WHITE);
+		nombre1.setForeground(Color.BLACK);
 		nombre1.setFont(new Font("Arial", Font.ITALIC, 12));
 		nombre1.setBounds(10, 436, 68, 14);
 		nombre1.setPreferredSize(new Dimension(68, 14));
@@ -518,7 +535,7 @@ public class PI {
 
 		//nombre
 		JLabel nombre2 = new JLabel("Jorge PD");
-		nombre2.setForeground(Color.WHITE);
+		nombre2.setForeground(Color.BLACK);
 		nombre2.setFont(new Font("Arial", Font.ITALIC, 12));
 		nombre2.setBounds(112, 436, 62, 14);
 		nombre2.setPreferredSize(new Dimension(62, 14));
@@ -526,7 +543,7 @@ public class PI {
 
 		//separador nombres
 		JLabel slash = new JLabel("/");
-		slash.setForeground(Color.WHITE);
+		slash.setForeground(Color.BLACK);
 		slash.setFont(new Font("Arial", Font.ITALIC, 12));
 		slash.setBounds(92, 436, 16, 14);
 		slash.setPreferredSize(new Dimension(16, 14));
@@ -551,7 +568,14 @@ public class PI {
 		desplegable.setBorder(null);
 		panel.add(desplegable);
 
-	
+
+		JLabel fondo = new JLabel(new ImageIcon("Img/fondo1.jpg"));
+		fondo.setBounds(0, 0, 450, 500);
+		fondo.setPreferredSize(new Dimension(450, 500));
+		panel.add(fondo);
+
+
+
 
 
 
