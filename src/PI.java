@@ -1,24 +1,21 @@
 import java.io.IOException;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Image;
 
-//Eduardo Morales Calvo
-//Jorge Pérez de Dios
+/*@AUTORES:
+ * Eduardo Morales Calvo
+ * Jorge Pérez de Dios
+*/
 
 public class PI {
 
