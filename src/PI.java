@@ -17,6 +17,7 @@ import java.awt.Image;
  * Jorge Pérez de Dios
 */
 
+
 public class PI {
 
 	public static void llamada(JPanel panel,String lugar,JLabel Titulo,JLabel Imagen,JLabel climaLabel,JLabel descriptionLabel,JLabel temperatureLabel, 
