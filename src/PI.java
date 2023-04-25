@@ -258,7 +258,7 @@ public class PI {
 
 		//Imagen
 		JLabel Imagen = new JLabel();
-		Imagen.setBounds(225, 100, 220, 220);
+		Imagen.setBounds(242, 100, 220, 220);
 		Imagen.setPreferredSize(new Dimension(220, 220));//168,132
 		panel.add(Imagen);
 
