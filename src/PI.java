@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Image;
 
 /*@AUTORES:
  * Eduardo Morales Calvo
@@ -242,17 +241,22 @@ public class PI {
 
 		//Inicio panel que incluye los labels
 		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBounds(100, 100, 450, 500);
-		panel.setBackground(new Color(42, 50, 60));
+		panel.setBounds(0, 70, 434, 70);
 		panel.setBorder(null);
+		panel.setLayout(null);
+		
+		JPanel panel1 = new JPanel();
+		panel1.setBackground(new Color(100,149,237));
+		panel1.setBorder(null);
+		panel1.setLayout(null);
+		panel1.setBounds(0, 0, 432, 70);
 
 
 		//Titulo
 		JLabel Titulo = new JLabel();
 		Titulo.setForeground(Color.BLACK);
 		Titulo.setFont(new Font("Arial", Font.BOLD, 28));
-		Titulo.setBounds(10, 67, 305, 43);
+		Titulo.setBounds(10, 73, 305, 43);
 		Titulo.setPreferredSize(new Dimension(305, 43));
 		panel.add(Titulo);
 
@@ -513,9 +517,9 @@ public class PI {
 
 		//logo
 		JLabel logo = new JLabel(new ImageIcon("Img/Logo.png"));
-		logo.setBounds(10, 18, 46, 42);
+		logo.setBounds(10, 15, 46, 42);
 		logo.setPreferredSize(new Dimension(46, 42));
-		panel.add(logo);
+		panel1.add(logo);
 
 		//logo UEM
 		JLabel logoUEM = new JLabel(new ImageIcon("Img/UEM.png"));
@@ -553,30 +557,29 @@ public class PI {
 		botonbuscar.setBorder(null); // quita bordes
 		botonbuscar.setContentAreaFilled(false); // quita bordes
 		botonbuscar.setFocusPainted(false); // quita bordes
-		botonbuscar.setBounds(230, 25, 30, 30);
+		botonbuscar.setBounds(230, 22, 30, 30);
 		botonbuscar.setBackground(new Color(42, 50, 60));
-		panel.add(botonbuscar);
+		panel1.add(botonbuscar);
 
 		//desplegable torres
 		JComboBox desplegable = new JComboBox(torres);
 		desplegable.setBackground(new Color(177, 186, 186));
 		desplegable.setFont(new Font("Arial", Font.BOLD, 12));
 		desplegable.setForeground(Color.BLACK);        
-		desplegable.setBounds(66, 29, 154, 25);
+		desplegable.setBounds(66, 26, 154, 25);
 		desplegable.setBorder(null);
-		panel.add(desplegable);
+		panel1.add(desplegable);
 
 
 		JLabel fondo = new JLabel(new ImageIcon("Img/fondo1.jpg"));
-		fondo.setBounds(0, 0, 450, 500);
+		fondo.setBounds(0, 70, 450, 500);
 		fondo.setPreferredSize(new Dimension(450, 500));
 		panel.add(fondo);
 
 
 
-
-
-		frame.setContentPane(panel); //Incluir el panel dentro del frame
+		frame.add(panel1); //Incluir el panel1 dentro del frame
+		frame.add(panel); //Incluir el panel dentro del frame
 		frame.setVisible(true); //visible el frame
 
 		botonbuscar.addActionListener(new ActionListener() {
