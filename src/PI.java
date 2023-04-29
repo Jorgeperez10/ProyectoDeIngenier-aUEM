@@ -507,7 +507,7 @@ public class PI {
 		JLabel timeLabel = new JLabel();
 		timeLabel.setForeground(Color.BLACK);
 		timeLabel.setFont(new Font("Arial", Font.BOLD, 12));
-		timeLabel.setBounds(255, 280, 300, 14);
+		timeLabel.setBounds(247, 280, 300, 14);
 		timeLabel.setPreferredSize(new Dimension(300, 14));
 		panel.add(timeLabel);
 
@@ -571,7 +571,6 @@ public class PI {
 		fondo.setBounds(0, 0, 450, 500);
 		fondo.setPreferredSize(new Dimension(450, 500));
 		panel.add(fondo);
-
 
 
 
